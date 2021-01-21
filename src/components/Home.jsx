@@ -1,6 +1,8 @@
+import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import ALL_VIDEOS from '../queries/allVideos';
 
 // material UI css
 const useStyles = makeStyles((theme) => ({
@@ -14,27 +16,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Query
+
 const Home = () => {
   const classes = useStyles();
+
+  const { loading, error, data } = useQuery(ALL_VIDEOS);
+  console.log(data);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error</p>;
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>Hello</Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>Hello</Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>Hello</Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>Hello</Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>Hello</Paper>
-        </Grid>
+        {data.allVideos.items.map((item) => (
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.paper} key={item.id}>
+              {item.name}
+            </Paper>
+          </Grid>
+        ))}
       </Grid>
     </div>
   );
