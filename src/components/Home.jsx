@@ -16,13 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Query
-
 const Home = () => {
   const classes = useStyles();
 
   const { loading, error, data } = useQuery(ALL_VIDEOS);
-  console.log(data);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
@@ -33,7 +30,8 @@ const Home = () => {
         {data.allVideos.items.map((item) => (
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper} key={item.id}>
-              {item.name}
+              <img src={item.poster} alt="video poster" />
+              <div>{item.name}</div>
             </Paper>
           </Grid>
         ))}
