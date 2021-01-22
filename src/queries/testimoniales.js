@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-const ALL_VIDEOS = gql`
+const TESTIMONIALES = gql`
   query {
-    allVideos(limit: 5) {
+    allVideos(limit: 5, tagIds: "cbe8429e-77f4-4fe0-b7b6-f869c7890c5e") {
       items {
         name
         id
@@ -10,10 +10,11 @@ const ALL_VIDEOS = gql`
         poster
         Tags {
           name
+          id
         }
       }
     }
   }
 `;
 
-export default ALL_VIDEOS;
+export default TESTIMONIALES;

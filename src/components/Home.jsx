@@ -32,6 +32,7 @@ const Home = () => {
             <Paper className={classes.paper} key={item.id}>
               <img src={item.poster} alt="video poster" />
               <div>{item.name}</div>
+              <div>{item.Tags.name}</div>
             </Paper>
           </Grid>
         ))}

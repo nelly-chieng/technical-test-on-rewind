@@ -23,7 +23,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      'x-account-key': process.env.REACT_APP_TOKEN,
+      'x-account-key': process.env.REACT_APP_KEY,
     },
   };
 });
