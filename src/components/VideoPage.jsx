@@ -1,7 +1,9 @@
-import { useQuery, gql } from '@apollo/client';
+import { useParams } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { Chip } from '@material-ui/core';
 
 // material UI css
 const useStyles = makeStyles((theme) => ({
@@ -14,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
+const { id } = useParams;
 
 const VIDEO = gql`
-  query video($id: ID!) {
-    video(id: $id) {
+  query {
+    video(id: ${id}) {
       id
       url
       name
@@ -33,7 +36,9 @@ const VIDEO = gql`
 const VideoPage = () => {
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery(VIDEO);
+  const { loading, error, data } = useQuery(VIDEO, {
+    variables: { id },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
@@ -41,8 +46,14 @@ const VideoPage = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Paper className={classes.paper} key={data.video.id}>
+        <Paper className={classes.paper} key={id}>
           <img src={data.video.poster} alt="video poster" />
+          <div>{.name}</div>
+          <div className={classes.tags}>
+            {data.allVideos.items[0].Tags.map((tag) => (
+              <Chip key={tag.name} label={tag.name} />
+            ))}
+          </div>
         </Paper>
       </Grid>
     </div>

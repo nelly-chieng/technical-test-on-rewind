@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+    marginBottom: '50px',
   },
 });
 
@@ -21,21 +22,20 @@ function Header() {
 
   return (
     <Paper className={classes.root}>
-      <Link to="/">LOGO</Link>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Link to="/funzone">
-          <Tab label="Funzone" />
-        </Link>
-        <Link to="/testimoniales">
-          <Tab label="Testimoniales" />
-        </Link>
-      </Tabs>
+      <div className="spaceBetween">
+        <Tab label="LOGO" component={Link} to="/" />
+
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+        >
+          <Tab label="Funzone" component={Link} to="/funzone" />
+          <Tab label="Testimoniales" component={Link} to="/testimoniales" />
+        </Tabs>
+      </div>
     </Paper>
   );
 }

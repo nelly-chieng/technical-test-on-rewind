@@ -1,14 +1,16 @@
 import { gql } from '@apollo/client';
 
 const VIDEO = gql`
-  query {
-    video(id: "9cb4e81d-9853-41ed-9223-1bea32ee16bf") {
+  query video($id: ID!) {
+    video(id: $id) {
+      id
       url
       name
-      poster
       Tags {
+        id
         name
       }
+      poster
     }
   }
 `;

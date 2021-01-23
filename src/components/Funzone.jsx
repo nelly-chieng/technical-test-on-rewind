@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { Chip } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import FUNZONE from '../queries/funzone';
 
@@ -13,6 +14,18 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+  },
+  tags: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
+  img: {
+    width: '100%',
+    height: '100%',
   },
 }));
 
@@ -30,8 +43,17 @@ const Funzone = () => {
         {data.allVideos.items.map((item) => (
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper} key={item.id}>
-              <img src={item.poster} alt="video poster" />
+              <img
+                src={item.poster}
+                alt="video poster"
+                className={classes.img}
+              />
               <div>{item.name}</div>
+              <div className={classes.tags}>
+                {data.allVideos.items[0].Tags.map((tag) => (
+                  <Chip key={tag.name} label={tag.name} />
+                ))}
+              </div>
             </Paper>
           </Grid>
         ))}

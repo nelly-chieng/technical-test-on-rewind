@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  tag: {
+  tags: {
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  img: {
+    width: '100%',
+    height: '100%',
+  },
 }));
 
 const Home = () => {
@@ -42,23 +46,22 @@ const Home = () => {
   if (error) return <p>Error</p>;
 
   return (
-    <div className={classes.root}>
+    <div className={`bodyMargin ${classes.root}`}>
       <Grid container spacing={3}>
         {data.allVideos.items.map((item) => (
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper} key={item.id}>
               <Link to={`/video/${item.id}`}>
-                <img src={item.poster} alt="video poster" />
+                <img
+                  src={item.poster}
+                  alt="video poster"
+                  className={classes.img}
+                />
               </Link>
               <div>{item.name}</div>
-              <div>
+              <div className={classes.tags}>
                 {data.allVideos.items[0].Tags.map((tag) => (
-                  <Chip
-                    variant="outlined"
-                    size="small"
-                    key={tag.name}
-                    label={tag.name}
-                  />
+                  <Chip key={tag.name} label={tag.name} />
                 ))}
               </div>
             </Paper>
@@ -69,15 +72,12 @@ const Home = () => {
         <Button
           onClick={() => {
             const { after } = data.allVideos.cursor;
-            console.log(after);
-
             fetchMore({
               variables: { after: after },
               updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) {
                   return prev;
                 }
-
                 return fetchMoreResult;
               },
             });
