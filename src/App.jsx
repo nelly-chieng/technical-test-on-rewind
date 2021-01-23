@@ -11,9 +11,9 @@ import UserContext from './UserContext';
 import Layout from './Layout';
 import Home from './components/Home';
 import VideoPage from './components/VideoPage';
-import './App.css';
 import Testimoniales from './components/Testimoniales';
 import Funzone from './components/Funzone';
+import './App.css';
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_API_URL,
