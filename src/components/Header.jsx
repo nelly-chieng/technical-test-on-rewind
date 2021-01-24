@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Link } from 'react-router-dom';
+import logo from '../images/logo.png';
 
 const useStyles = makeStyles({
   root: {
@@ -23,14 +24,15 @@ function Header() {
   return (
     <Paper className={classes.root}>
       <div className="spaceBetween">
-        <Tab label="LOGO" component={Link} to="/" />
+        <Link to="/">
+          <img src={logo} alt="logo on rewind" className="logo" />
+        </Link>
 
         <Tabs
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
-          centered
         >
           <Tab label="Funzone" component={Link} to="/funzone" />
           <Tab label="Testimoniales" component={Link} to="/testimoniales" />
