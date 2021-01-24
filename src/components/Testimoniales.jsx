@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+// end material UI css
 
 const Testimoniales = () => {
   const classes = useStyles();
@@ -85,23 +86,26 @@ const Testimoniales = () => {
             fetchMore({
               variables: { before: before },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (before === null) {
                   return prev;
                 }
                 return fetchMoreResult;
               },
             });
           }}
-          className="icon"
+          className={
+            data.allVideos.cursor.before === null ? 'iconNone' : 'icon'
+          }
           size="4rem"
         />
+
         <IoIosArrowDroprightCircle
           onClick={() => {
             const { after } = data.allVideos.cursor;
             fetchMore({
               variables: { after: after },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (after === null) {
                   return prev;
                 }
                 return fetchMoreResult;
@@ -109,7 +113,7 @@ const Testimoniales = () => {
             });
           }}
           variant="outlined"
-          className="icon"
+          className={data.allVideos.cursor.after === null ? 'iconNone' : 'icon'}
           size="4rem"
         />
       </Grid>

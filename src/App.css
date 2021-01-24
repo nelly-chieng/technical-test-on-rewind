@@ -42,7 +42,7 @@
 
 .spaceBetween {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between !important;
 }
 
 .bottomMarginPage {
@@ -76,7 +76,18 @@ img {
   box-shadow: #282c34;
 }
 
+.iconNone {
+  display: none;
+}
+
 .logo {
   height: 50px;
   width: 50px;
+}
+.alignRight {
+  text-align: right !important;
+}
+
+.space {
+  width: 120vh;
 }
