@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -31,10 +32,6 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
-  },
-  img: {
-    width: '100%',
-    height: '100%',
   },
 }));
 
@@ -78,6 +75,24 @@ const Funzone = () => {
         ))}
       </Grid>
       <Grid>
+        <Button
+          onClick={() => {
+            const { before } = data.allVideos.cursor;
+            fetchMore({
+              variables: { before: before },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) {
+                  return prev;
+                }
+                return fetchMoreResult;
+              },
+            });
+          }}
+          variant="outlined"
+          className={classes.button}
+        >
+          Less
+        </Button>
         <Button
           onClick={() => {
             const { after } = data.allVideos.cursor;

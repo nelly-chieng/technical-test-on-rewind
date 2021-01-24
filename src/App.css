@@ -50,7 +50,7 @@
 }
 
 .cardHeight {
-  height: 60vh;
+  height: 200px;
 }
 
 .tag {
@@ -58,4 +58,14 @@
   background-color: #495057 !important;
   color: white !important;
   font-weight: 500;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.videoName {
+  margin-bottom: 20px;
+  margin-top: 5px;
 }

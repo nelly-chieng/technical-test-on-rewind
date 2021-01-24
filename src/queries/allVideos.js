@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const ALL_VIDEOS = gql`
-  query getAllVideos($after: String) {
-    allVideos(limit: 5, after: $after) {
+  query getAllVideos($after: String, $before: String) {
+    allVideos(limit: 5, after: $after, before: $before) {
       items {
         name
         id
@@ -15,6 +15,7 @@ const ALL_VIDEOS = gql`
       }
       cursor {
         after
+        before
       }
     }
   }
