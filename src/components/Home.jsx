@@ -34,10 +34,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  img: {
-    width: '100%',
-    height: '100%',
-  },
 }));
 
 const Home = () => {
@@ -64,12 +60,12 @@ const Home = () => {
                 ) : (
                   <img
                     src={item.poster}
-                    alt="video poster"
+                    alt={item.name}
                     className={classes.img}
                   />
                 )}
               </Link>
-              <div>{item.name}</div>
+              <div className="videoName">{item.name}</div>
               <div className={classes.tags}>
                 {data.allVideos.items[0].Tags.map((tag) => (
                   <Chip key={tag.name} label={tag.name} className="tag" />
@@ -80,6 +76,24 @@ const Home = () => {
         ))}
       </Grid>
       <Grid>
+        <Button
+          onClick={() => {
+            const { before } = data.allVideos.cursor;
+            fetchMore({
+              variables: { before: before },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) {
+                  return prev;
+                }
+                return fetchMoreResult;
+              },
+            });
+          }}
+          variant="outlined"
+          className={classes.button}
+        >
+          Less
+        </Button>
         <Button
           onClick={() => {
             const { after } = data.allVideos.cursor;
