@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const VIDEO = gql`
-  query video($id: ID!) {
+  query getVideo($id: ID!) {
     video(id: $id) {
       id
       url

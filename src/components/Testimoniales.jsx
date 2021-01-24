@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { useQuery } from '@apollo/client';
-import { Chip } from '@material-ui/core';
+import { Button, Chip } from '@material-ui/core';
 import TESTIMONIALES from '../queries/testimoniales';
+import placeholder from '../images/placeholder.jpeg';
+
 // material UI css
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     '& > *': {
       margin: theme.spacing(0.5),
+      marginTop: '10px',
+      marginBottom: '10px',
+    },
+  },
+  button: {
+    '& > *': {
+      margin: theme.spacing(1),
     },
   },
   img: {
@@ -31,31 +41,62 @@ const useStyles = makeStyles((theme) => ({
 const Testimoniales = () => {
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery(TESTIMONIALES);
+  const { loading, error, data, fetchMore } = useQuery(TESTIMONIALES);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
+    <div className={`bodyMargin ${classes.root}`}>
+      <Grid container spacing={3} className="bottomMarginPage">
         {data.allVideos.items.map((item) => (
           <Grid item xs={12} sm={6}>
-            <Paper className={classes.paper} key={item.id}>
-              <img
-                src={item.poster}
-                alt="video poster"
-                className={classes.img}
-              />
+            <Paper className={`cardHeight${classes.paper}`} key={item.id}>
+              <Link to={`/video/${item.id}`}>
+                {item.poster === null ? (
+                  <img
+                    src={placeholder}
+                    alt="placeholder"
+                    className={classes.img}
+                  />
+                ) : (
+                  <img
+                    src={item.poster}
+                    alt="video poster"
+                    className={classes.img}
+                  />
+                )}
+              </Link>
               <div>{item.name}</div>
               <div className={classes.tags}>
                 {data.allVideos.items[0].Tags.map((tag) => (
-                  <Chip key={tag.name} label={tag.name} />
+                  <Chip key={tag.name} label={tag.name} className="tag" />
                 ))}
               </div>
             </Paper>
           </Grid>
         ))}
+      </Grid>
+      <Grid>
+        <Button
+          onClick={() => {
+            const { after } = data.allVideos.cursor;
+            fetchMore({
+              // eslint-disable-next-line object-shorthand
+              variables: { after: after },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) {
+                  return prev;
+                }
+                return fetchMoreResult;
+              },
+            });
+          }}
+          variant="outlined"
+          className={classes.button}
+        >
+          More
+        </Button>
       </Grid>
     </div>
   );

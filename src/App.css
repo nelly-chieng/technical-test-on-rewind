@@ -44,3 +44,18 @@
   display: flex;
   justify-content: space-between;
 }
+
+.bottomMarginPage {
+  padding-bottom: 30px;
+}
+
+.cardHeight {
+  height: 60vh;
+}
+
+.tag {
+  box-shadow: 5px 5px 5px #868e96;
+  background-color: #495057 !important;
+  color: white !important;
+  font-weight: 500;
+}

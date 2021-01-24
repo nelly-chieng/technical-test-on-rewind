@@ -16,11 +16,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-const { id } = useParams;
 
 const VIDEO = gql`
-  query {
-    video(id: ${id}) {
+  query($id: ID!) {
+    video(id: $id) {
       id
       url
       name
@@ -35,9 +34,11 @@ const VIDEO = gql`
 
 const VideoPage = () => {
   const classes = useStyles();
+  const { id } = useParams;
 
   const { loading, error, data } = useQuery(VIDEO, {
-    variables: { id },
+    // eslint-disable-next-line object-shorthand
+    variables: { id: id },
   });
 
   if (loading) return <p>Loading...</p>;
@@ -46,11 +47,11 @@ const VideoPage = () => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Paper className={classes.paper} key={id}>
+        <Paper className={classes.paper} key={data.video.id}>
           <img src={data.video.poster} alt="video poster" />
-          <div>{.name}</div>
+          <div>{data.video.name}</div>
           <div className={classes.tags}>
-            {data.allVideos.items[0].Tags.map((tag) => (
+            {data.video.Tags.map((tag) => (
               <Chip key={tag.name} label={tag.name} />
             ))}
           </div>
