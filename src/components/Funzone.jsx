@@ -1,10 +1,14 @@
 /* eslint-disable object-shorthand */
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Button, Chip } from '@material-ui/core';
-import { useQuery } from '@apollo/client';
+import Chip from '@material-ui/core/Chip';
+import {
+  IoIosArrowDroprightCircle,
+  IoIosArrowDropleftCircle,
+} from 'react-icons/io';
 import FUNZONE from '../queries/funzone';
 import placeholder from '../images/placeholder.jpeg';
 
@@ -34,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+// end material UI css
 
 const Funzone = () => {
   const classes = useStyles();
@@ -59,7 +64,7 @@ const Funzone = () => {
                 ) : (
                   <img
                     src={item.poster}
-                    alt="video poster"
+                    alt={item.name}
                     className={classes.img}
                   />
                 )}
@@ -75,31 +80,32 @@ const Funzone = () => {
         ))}
       </Grid>
       <Grid>
-        <Button
+        <IoIosArrowDropleftCircle
           onClick={() => {
             const { before } = data.allVideos.cursor;
             fetchMore({
               variables: { before: before },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (before === null) {
                   return prev;
                 }
                 return fetchMoreResult;
               },
             });
           }}
-          variant="outlined"
-          className={classes.button}
-        >
-          Less
-        </Button>
-        <Button
+          className={
+            data.allVideos.cursor.before === null ? 'iconNone' : 'icon'
+          }
+          size="4rem"
+        />
+
+        <IoIosArrowDroprightCircle
           onClick={() => {
             const { after } = data.allVideos.cursor;
             fetchMore({
-              variables: { after },
+              variables: { after: after },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (after === null) {
                   return prev;
                 }
                 return fetchMoreResult;
@@ -107,10 +113,9 @@ const Funzone = () => {
             });
           }}
           variant="outlined"
-          className={classes.button}
-        >
-          More
-        </Button>
+          className={data.allVideos.cursor.after === null ? 'iconNone' : 'icon'}
+          size="4rem"
+        />
       </Grid>
     </div>
   );

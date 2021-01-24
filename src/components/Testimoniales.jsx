@@ -1,10 +1,14 @@
 /* eslint-disable object-shorthand */
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { useQuery } from '@apollo/client';
-import { Button, Chip } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
+import {
+  IoIosArrowDroprightCircle,
+  IoIosArrowDropleftCircle,
+} from 'react-icons/io';
 import TESTIMONIALES from '../queries/testimoniales';
 import placeholder from '../images/placeholder.jpeg';
 
@@ -34,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+// end material UI css
 
 const Testimoniales = () => {
   const classes = useStyles();
@@ -59,7 +64,7 @@ const Testimoniales = () => {
                 ) : (
                   <img
                     src={item.poster}
-                    alt="video poster"
+                    alt={item.name}
                     className={classes.img}
                   />
                 )}
@@ -75,32 +80,32 @@ const Testimoniales = () => {
         ))}
       </Grid>
       <Grid>
-        <Button
+        <IoIosArrowDropleftCircle
           onClick={() => {
             const { before } = data.allVideos.cursor;
             fetchMore({
               variables: { before: before },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (before === null) {
                   return prev;
                 }
                 return fetchMoreResult;
               },
             });
           }}
-          variant="outlined"
-          className={classes.button}
-        >
-          Less
-        </Button>
-        <Button
+          className={
+            data.allVideos.cursor.before === null ? 'iconNone' : 'icon'
+          }
+          size="4rem"
+        />
+
+        <IoIosArrowDroprightCircle
           onClick={() => {
             const { after } = data.allVideos.cursor;
             fetchMore({
-              // eslint-disable-next-line object-shorthand
               variables: { after: after },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (after === null) {
                   return prev;
                 }
                 return fetchMoreResult;
@@ -108,10 +113,9 @@ const Testimoniales = () => {
             });
           }}
           variant="outlined"
-          className={classes.button}
-        >
-          More
-        </Button>
+          className={data.allVideos.cursor.after === null ? 'iconNone' : 'icon'}
+          size="4rem"
+        />
       </Grid>
     </div>
   );

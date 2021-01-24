@@ -5,7 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
+import {
+  IoIosArrowDroprightCircle,
+  IoIosArrowDropleftCircle,
+} from 'react-icons/io';
 import ALL_VIDEOS from '../queries/allVideos';
 import placeholder from '../images/placeholder.jpeg';
 
@@ -29,12 +32,8 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: '10px',
     },
   },
-  button: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
 }));
+// end material UI css
 
 const Home = () => {
   const classes = useStyles();
@@ -76,31 +75,32 @@ const Home = () => {
         ))}
       </Grid>
       <Grid>
-        <Button
+        <IoIosArrowDropleftCircle
           onClick={() => {
             const { before } = data.allVideos.cursor;
             fetchMore({
               variables: { before: before },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (before === null) {
                   return prev;
                 }
                 return fetchMoreResult;
               },
             });
           }}
-          variant="outlined"
-          className={classes.button}
-        >
-          Less
-        </Button>
-        <Button
+          className={
+            data.allVideos.cursor.before === null ? 'iconNone' : 'icon'
+          }
+          size="4rem"
+        />
+
+        <IoIosArrowDroprightCircle
           onClick={() => {
             const { after } = data.allVideos.cursor;
             fetchMore({
               variables: { after: after },
               updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) {
+                if (after === null) {
                   return prev;
                 }
                 return fetchMoreResult;
@@ -108,10 +108,9 @@ const Home = () => {
             });
           }}
           variant="outlined"
-          className={classes.button}
-        >
-          More
-        </Button>
+          className={data.allVideos.cursor.after === null ? 'iconNone' : 'icon'}
+          size="4rem"
+        />
       </Grid>
     </div>
   );
