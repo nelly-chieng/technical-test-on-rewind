@@ -75,3 +75,7 @@ Create a dotenv file :
 
 REACT_APP_KEY = "MyKey"
 REACT_APP_API_URL = MyApiUrl
+
+### `npm install`
+
+Make npm install for the dependencies

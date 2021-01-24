@@ -6,12 +6,14 @@ import Tab from '@material-ui/core/Tab';
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.png';
 
+// material UI css
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     marginBottom: '50px',
   },
 });
+// end material UI css
 
 function Header() {
   const classes = useStyles();

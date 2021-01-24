@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-// end material css
+// end material UI css
 
 const Home = () => {
   const classes = useStyles();
