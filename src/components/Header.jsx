@@ -9,8 +9,10 @@ import logo from '../images/logo.png';
 // material UI css
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1,
     marginBottom: '50px',
+  },
+  tabs: {
+    textAlign: 'right',
   },
 });
 // end material UI css
@@ -26,16 +28,23 @@ function Header() {
   return (
     <Paper className={classes.root}>
       <div className="spaceBetween">
-        <Link to="/">
+        {/* <Link to="/">
           <img src={logo} alt="logo on rewind" className="logo" />
-        </Link>
+        </Link> */}
 
         <Tabs
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
+          className="spaceBetween"
         >
+          <Tab
+            icon={<img src={logo} alt="logo on rewind" className="logo" />}
+            component={Link}
+            to="/"
+          />
+          <div className="space" />
           <Tab label="Funzone" component={Link} to="/funzone" />
           <Tab label="Testimoniales" component={Link} to="/testimoniales" />
         </Tabs>
