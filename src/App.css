@@ -76,6 +76,10 @@ img {
   box-shadow: #282c34;
 }
 
+.iconNone {
+  display: none;
+}
+
 .logo {
   height: 50px;
   width: 50px;
