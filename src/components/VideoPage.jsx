@@ -48,9 +48,9 @@ const VideoPage = () => {
       <Grid container spacing={3}>
         <Paper className={classes.paper} key={data.video.id}>
           {data.video.poster === null ? (
-            <img src={placeholder} alt={data.video.name} />
+            <img src={placeholder} alt="placeholder" />
           ) : (
-            <img src={data.video.poster} alt="video poster" />
+            <img src={data.video.poster} alt={data.video.name} />
           )}
 
           <div>{data.video.name}</div>

@@ -69,3 +69,14 @@ img {
   margin-bottom: 20px;
   margin-top: 5px;
 }
+
+.icon {
+  cursor: pointer;
+  color: #868e96;
+  box-shadow: #282c34;
+}
+
+.logo {
+  height: 50px;
+  width: 50px;
+}
