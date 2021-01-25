@@ -40,11 +40,6 @@
   margin: 0 40px 40px 40px;
 }
 
-.spaceBetween {
-  display: flex;
-  justify-content: space-between !important;
-}
-
 .bottomMarginPage {
   padding-bottom: 30px;
 }

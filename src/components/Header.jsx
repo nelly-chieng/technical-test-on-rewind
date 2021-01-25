@@ -27,11 +27,7 @@ function Header() {
 
   return (
     <Paper className={classes.root}>
-      <div className="spaceBetween">
-        {/* <Link to="/">
-          <img src={logo} alt="logo on rewind" className="logo" />
-        </Link> */}
-
+      <div>
         <Tabs
           value={value}
           onChange={handleChange}
