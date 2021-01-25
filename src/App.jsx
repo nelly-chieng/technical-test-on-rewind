@@ -7,7 +7,6 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import UserContext from './UserContext';
 import Layout from './Layout';
 import Home from './components/Home';
 import VideoPage from './components/VideoPage';
@@ -38,15 +37,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ApolloProvider client={client}>
-          <UserContext.Provider>
-            <Layout />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/funzone" component={Funzone} />
-              <Route path="/testimoniales" component={Testimoniales} />
-              <Route path="/video/:id" component={VideoPage} />
-            </Switch>
-          </UserContext.Provider>
+          <Layout />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/funzone" component={Funzone} />
+            <Route path="/testimoniales" component={Testimoniales} />
+            <Route path="/video/:id" component={VideoPage} />
+          </Switch>
         </ApolloProvider>
       </BrowserRouter>
     </div>
